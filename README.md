@@ -56,6 +56,7 @@ Plaintext
 ¿Encontraste un error o quieres proponer una mejora? ¡Las pull requests son bienvenidas!
 
 Si este material te ha sido útil para tus proyectos o aprendizaje:
-⭐ ¡Regálale una estrella a este repositorio! Eso me ayuda enormemente a seguir creando contenido educativo gratuito sobre ingeniería y desarrollo.
+⭐ ¡Regálale una estrella a este repositorio! Eso me ayuda enormemente a seguir creando contenido
+ educativo gratuito sobre ingeniería y desarrollo.
 
 Hecho con 💻 y Python por [Tu Nombre / Tu Canal]
