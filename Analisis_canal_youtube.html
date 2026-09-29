@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía profesional: análisis de canal de YouTube</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.7; color: #2c3e50; background: #f8f9fa; padding: 20px; max-width: 980px; margin: 0 auto; }
+  .portada { background: linear-gradient(135deg, #1F4E79 0%, #2E75B6 100%); color: white; padding: 60px 40px; border-radius: 16px; text-align: center; margin-bottom: 30px; }
+  .portada h1 { font-size: 2.3em; margin-bottom: 15px; line-height: 1.3; }
+  .portada p { font-size: 1.15em; opacity: 0.95; margin-top: 10px; }
+  .portada .emoji { font-size: 3.5em; display: block; margin-bottom: 20px; }
+  .boton-imprimir { display: block; width: 100%; max-width: 320px; margin: 0 auto 30px auto; padding: 15px 30px; background: #C00000; color: white; border: none; border-radius: 8px; font-size: 1.1em; font-weight: bold; cursor: pointer; }
+  .boton-imprimir:hover { background: #a00000; }
+  .indice { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .indice h2 { color: #1F4E79; margin-bottom: 20px; }
+  .indice ol { padding-left: 25px; }
+  .indice li { margin-bottom: 10px; }
+  .indice a { color: #2E75B6; text-decoration: none; font-weight: 500; }
+  .indice a:hover { text-decoration: underline; }
+  .seccion { background: white; padding: 35px 30px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .seccion h2 { color: #1F4E79; font-size: 1.55em; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 3px solid #1F4E79; }
+  .seccion h3 { color: #2E75B6; font-size: 1.15em; margin: 22px 0 12px 0; }
+  .caja-truco { background: #FFF9E6; border-left: 5px solid #F1C40F; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .caja-truco strong { color: #B7950B; }
+  .caja-error { background: #FDEDEC; border-left: 5px solid #C00000; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .caja-error strong { color: #C00000; }
+  .caja-info { background: #EAF2F8; border-left: 5px solid #2E75B6; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .caja-exito { background: #E8F8F5; border-left: 5px solid #27AE60; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .caja-alerta { background: #FEF5E7; border: 2px dashed #E67E22; padding: 20px; border-radius: 8px; margin: 25px 0; }
+  .caja-alerta strong { color: #CA6F1E; }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95em; }
+  th { background: #1F4E79; color: white; padding: 12px 10px; text-align: left; }
+  td { padding: 10px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  .paso { display: flex; align-items: flex-start; margin: 18px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+  .paso .numero { background: #1F4E79; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1em; flex-shrink: 0; margin-right: 15px; }
+  .paso .texto { flex: 1; padding-top: 5px; }
+  .codigo { background: #2c3e50; color: #ecf0f1; padding: 15px 20px; border-radius: 8px; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.78em; overflow-x: auto; margin: 12px 0; line-height: 1.45; white-space: pre; max-height: 600px; overflow-y: auto; }
+  .codigo-inline { background: #ecf0f1; color: #c0392b; padding: 2px 8px; border-radius: 4px; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.92em; }
+  .footer { text-align: center; color: #7f8c8d; padding: 30px; font-size: 0.9em; }
+  .contexto { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-right: 8px; vertical-align: middle; }
+  .ctx-terminal { background: #2c3e50; color: white; }
+  .ctx-editor { background: #27AE60; color: white; }
+  .ctx-navegador { background: #E67E22; color: white; }
+  .aviso-archivo { background: #2c3e50; color: white; padding: 10px 15px; border-radius: 6px; font-family: 'Consolas', monospace; font-size: 0.9em; margin: 15px 0 5px 0; }
+  .aviso-archivo::before { content: "📎 Guárdalo como: "; color: #F1C40F; font-weight: bold; font-family: 'Segoe UI', sans-serif; }
+  @media print {
+    body { background: white; padding: 0; }
+    .boton-imprimir { display: none; }
+    .seccion { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+    .portada { page-break-after: always; }
+    .paso { background: white; border: 1px solid #e0e0e0; }
+    .codigo { background: #2c3e50 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; max-height: none; overflow: visible; }
+    .caja-truco, .caja-error, .caja-info, .caja-exito, .caja-alerta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<button class="boton-imprimir" onclick="window.print()">📄 Guardar como PDF</button>
+
+<div class="portada">
+  <span class="emoji">🎬</span>
+  <h1>Análisis profesional de canal de YouTube</h1>
+  <p>Guía completa: desde la API Key hasta el reporte final para el cliente</p>
+  <p style="margin-top: 20px; font-size: 1em;">Ejemplo: canal <strong>Eloisa Wolf</strong></p>
+</div>
+
+<div class="indice">
+  <h2>📖 Índice</h2>
+  <ol>
+    <li><a href="#que-hace">¿Qué vamos a construir?</a></li>
+    <li><a href="#contextos">Antes de empezar: los 3 contextos</a></li>
+    <li><a href="#instalar">Instalar herramientas (una vez)</a></li>
+    <li><a href="#api">Obtener la API Key de YouTube (gratis)</a></li>
+    <li><a href="#scraper">Paso 1: Descargar los datos (scraper)</a></li>
+    <li><a href="#analisis">Paso 2: Generar el Excel con análisis</a></li>
+    <li><a href="#reporte">Paso 3: Generar el reporte PDF final</a></li>
+    <li><a href="#ejecutar">Paso 4: Ejecutar el flujo completo</a></li>
+    <li><a href="#hojas">Qué contiene cada hoja del Excel</a></li>
+    <li><a href="#interpretar">Cómo interpretar los resultados</a></li>
+    <li><a href="#errores">Errores comunes y solución</a></li>
+    <li><a href="#varios-canales">Analizar varios canales</a></li>
+  </ol>
+</div>
+
+<!-- 1 -->
+<div class="seccion" id="que-hace">
+  <h2>1. ¿Qué vamos a construir?</h2>
+  <p>Vas a construir un <strong>sistema profesional de análisis de YouTube</strong> que hace tres cosas:</p>
+  <table>
+    <tr><th>Producto</th><th>Qué es</th><th>Para quién</th></tr>
+    <tr><td><strong>CSV</strong></td><td>Lista de los últimos videos del canal con todos sus datos</td><td>Intermedio (lo leen los scripts)</td></tr>
+    <tr><td><strong>Excel (.xlsx)</strong></td><td>Análisis completo con 10 hojas, gráficas y análisis de miniaturas</td><td>Tú, para trabajar</td></tr>
+    <tr><td><strong>PDF de reporte</strong></td><td>Informe profesional con conclusiones, recomendaciones y miniaturas</td><td>Tu cliente final</td></tr>
+  </table>
+  <div class="caja-info">
+    <strong>💡 Ejemplo:</strong> analizamos el canal <strong>Eloisa Wolf</strong> (@EloisaWolf). El mismo sistema funciona para cualquier canal cambiando una sola línea.
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="seccion" id="contextos">
+  <h2>2. Antes de empezar: los 3 contextos</h2>
+  <p>Hay <strong>3 lugares distintos</strong> donde vas a escribir cosas:</p>
+  <table>
+    <tr><th>Contexto</th><th>Dónde está</th><th>Qué escribes ahí</th></tr>
+    <tr><td><span class="contexto ctx-terminal">TERMINAL</span></td><td>Panel de abajo de VS Code</td><td><strong>Comandos</strong>: <code>pip install</code>, <code>python archivo.py</code>, <code>dir</code></td></tr>
+    <tr><td><span class="contexto ctx-editor">EDITOR</span></td><td>Panel central de VS Code</td><td><strong>Código Python</strong> en archivos <code>.py</code></td></tr>
+    <tr><td><span class="contexto ctx-navegador">NAVEGADOR</span></td><td>Chrome / Edge / Firefox</td><td><strong>Configuración</strong> de la API Key de Google</td></tr>
+  </table>
+  <div class="caja-error">
+    <strong>❌ El error más común:</strong> Escribir un <strong>comando</strong> de terminal dentro de un archivo <code>.py</code>. Por ejemplo, escribir <code>python analisis_1canal.py</code> <em>dentro</em> del archivo. Ese comando va <strong>en la terminal</strong>.
+  </div>
+  <div class="caja-truco">
+    <strong>💡 Cómo saber dónde estás:</strong><br>
+    • Si ves <code>PS C:\...&gt;</code> al inicio → <strong>terminal</strong>.<br>
+    • Si ves hojas blancas con números de línea a la izquierda → <strong>editor</strong>.<br>
+    • Si ves barra de direcciones arriba → <strong>navegador</strong>.
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="seccion" id="instalar">
+  <h2>3. Instalar herramientas (una vez)</h2>
+  <p><span class="contexto ctx-terminal">TERMINAL</span> Abre la terminal de VS Code (<code>Ctrl + ñ</code>) y escribe:</p>
+  <div class="codigo">pip install openpyxl google-api-python-client pillow requests reportlab</div>
+  <p>Espera a que termine. Debe decir <span class="codigo-inline">Successfully installed</span>. Estas 5 librerías hacen lo siguiente:</p>
+  <table>
+    <tr><th>Librería</th><th>Para qué sirve</th></tr>
+    <tr><td><code>openpyxl</code></td><td>Crear y escribir archivos Excel</td></tr>
+    <tr><td><code>google-api-python-client</code></td><td>Conectar con YouTube</td></tr>
+    <tr><td><code>pillow</code></td><td>Leer y analizar imágenes (miniaturas)</td></tr>
+    <tr><td><code>requests</code></td><td>Descargar archivos de internet</td></tr>
+    <tr><td><code>reportlab</code></td><td>Generar el PDF final</td></tr>
+  </table>
+</div>
+
+<!-- 4 -->
+<div class="seccion" id="api">
+  <h2>4. Obtener la API Key de YouTube (gratis)</h2>
+  <p><span class="contexto ctx-navegador">NAVEGADOR</span> La API Key es una clave que te da Google para leer datos de YouTube. Es <strong>gratis</strong> y tarda 2 minutos.</p>
+  <div class="paso"><div class="numero">1</div><div class="texto"><strong>Entra a Google Cloud Console</strong><br>Ve a <span class="codigo-inline">console.cloud.google.com</span> y accede con tu cuenta de Google.</div></div>
+  <div class="paso"><div class="numero">2</div><div class="texto"><strong>Crea un proyecto</strong><br>Arriba a la izquierda → selector de proyectos → "Nuevo proyecto". Ponle un nombre como <em>"Analisis YouTube"</em>.</div></div>
+  <div class="paso"><div class="numero">3</div><div class="texto"><strong>Habilita la YouTube Data API v3</strong><br>En el buscador, escribe "YouTube Data API v3". Entra y haz clic en "Habilitar".</div></div>
+  <div class="paso"><div class="numero">4</div><div class="texto"><strong>Crea la API Key</strong><br>Menú lateral → "Credenciales" → "+ Crear credenciales" → "Clave de API". Google te dará una clave como <code>AIzaSyB...</code>.</div></div>
+  <div class="paso"><div class="numero">5</div><div class="texto"><strong>Cópiala y guárdala</strong><br>Pégala en un bloc de notas. La usarás en el paso 5.</div></div>
+  <div class="caja-truco">
+    <strong>💡 Cuota gratuita:</strong> 10.000 unidades por día. Analizar un canal de 30 videos consume ~150 unidades. Puedes analizar ~60 canales al día gratis.
+  </div>
+  <div class="caja-error">
+    <strong>❌ Nunca compartas tu API Key</strong> en capturas, videos o GitHub público. Si se filtra, cualquiera puede gastar tu cuota diaria.
+  </div>
+</div>
+
+<!-- 5 SCRAPER -->
+<div class="seccion" id="scraper">
+  <h2>5. Paso 1: Descargar los datos (scraper)</h2>
+  <p>Vamos a crear el archivo que descarga los últimos videos del canal y los guarda en un CSV.</p>
+
+  <div class="paso"><div class="numero">1</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> En VS Code presiona <code>Ctrl + N</code> para abrir un archivo nuevo.</div></div>
+  <div class="paso"><div class="numero">2</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Pega este código completo</strong>:</div></div>
+  <div class="aviso-archivo">scraper_canal.py</div>
+  <div class="codigo">from googleapiclient.discovery import build
+import csv
+
+# --- CONFIGURA AQUI ---
+API_KEY = "PEGA_AQUI_TU_API_KEY"
+CHANNEL_HANDLE = "EloisaWolf"
+MAX_VIDEOS = 30
+# -----------------------
+
+youtube = build("youtube", "v3", developerKey=API_KEY)
+
+busqueda = youtube.search().list(
+    part="snippet", q=CHANNEL_HANDLE, type="channel", maxResults=1
+).execute()
+
+if not busqueda["items"]:
+    print("No se encontro el canal. Revisa el handle.")
+    raise SystemExit
+
+channel_id = busqueda["items"][0]["snippet"]["channelId"]
+channel_title = busqueda["items"][0]["snippet"]["title"]
+print(f"Canal encontrado: {channel_title}")
+
+info_canal = youtube.channels().list(
+    part="contentDetails,statistics", id=channel_id
+).execute()
+
+uploads = info_canal["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+subs = info_canal["items"][0]["statistics"].get("subscriberCount", "0")
+print(f"Suscriptores: {subs}")
+
+lista_videos = youtube.playlistItems().list(
+    part="snippet", playlistId=uploads, maxResults=MAX_VIDEOS
+).execute()
+
+video_ids = [it["snippet"]["resourceId"]["videoId"] for it in lista_videos["items"]]
+
+stats = youtube.videos().list(
+    part="statistics,contentDetails,snippet", id=",".join(video_ids)
+).execute()
+
+filas = []
+for v in stats["items"]:
+    sn, st = v["snippet"], v["statistics"]
+    filas.append({
+        "canal": channel_title,
+        "handle": CHANNEL_HANDLE,
+        "suscriptores_canal": subs,
+        "titulo": sn["title"],
+        "publicado": sn["publishedAt"],
+        "vistas": st.get("viewCount", 0),
+        "likes": st.get("likeCount", 0),
+        "comentarios": st.get("commentCount", 0),
+        "duracion": v["contentDetails"]["duration"],
+        "url": f"https://youtube.com/watch?v={v['id']}",
+        "miniatura": sn["thumbnails"]["high"]["url"],
+    })
+
+filas.sort(key=lambda x: int(x["vistas"]), reverse=True)
+
+nombre_csv = f"{CHANNEL_HANDLE}.csv"
+with open(nombre_csv, "w", newline="", encoding="utf-8") as f:
+    w = csv.DictWriter(f, fieldnames=filas[0].keys())
+    w.writeheader()
+    w.writerows(filas)
+
+print(f"Listo: {len(filas)} videos guardados en {nombre_csv}")</div>
+
+  <div class="paso"><div class="numero">3</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Configura tu API Key y el canal</strong>:<br>• Cambia <code>"PEGA_AQUI_TU_API_KEY"</code> por la clave real del paso 4.<br>• Cambia <code>"EloisaWolf"</code> por el handle del canal que quieras analizar (sin la @).</div></div>
+  <div class="paso"><div class="numero">4</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Guarda con <code>Ctrl + S</code></strong> exactamente como <code>scraper_canal.py</code> en la carpeta <code>proyecto_ele</code>.</div></div>
+  <div class="paso"><div class="numero">5</div><div class="texto"><span class="contexto ctx-terminal">TERMINAL</span> <strong>Ejecuta</strong> escribiendo a mano:
+    <div class="codigo">python scraper_canal.py</div>
+  </div></div>
+
+  <div class="caja-exito">
+    <strong>✅ Resultado esperado:</strong>
+    <div class="codigo">Canal encontrado: Eloisa Wolf
+Suscriptores: 395000
+Listo: 30 videos guardados en EloisaWolf.csv</div>
+  </div>
+</div>
+
+<!-- 6 ANALISIS -->
+<div class="seccion" id="analisis">
+  <h2>6. Paso 2: Generar el Excel con análisis</h2>
+  <p>Este script crea el Excel con 10 hojas, descarga las miniaturas y analiza su color dominante.</p>
+
+  <div class="paso"><div class="numero">1</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <code>Ctrl + N</code> para abrir otro archivo en blanco.</div></div>
+  <div class="paso"><div class="numero">2</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Pega este código completo</strong>:</div></div>
+  <div class="aviso-archivo">analisis_1canal.py</div>
+  <div class="codigo">import csv, re, os
+from collections import Counter
+from datetime import datetime, timedelta
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
+from openpyxl.chart import BarChart, LineChart, PieChart, Reference
+from openpyxl.formatting.rule import ColorScaleRule
+from openpyxl.drawing.image import Image as XLImage
+import requests
+from PIL import Image
+
+# ============ CONFIGURACION ============
+ARCHIVO_CSV    = "EloisaWolf.csv"
+ARCHIVO_SALIDA = "analisis_EloisaWolf.xlsx"
+CARPETA_MINIATURAS = "miniaturas"
+DIAS_RECIENTES = 30
+DESCARGAR_MINIATURAS = True
+# =======================================
+
+AZUL, ROJO, VERDE, NARANJA, BLANCO = (
+    "1F4E79", "C00000", "548235", "ED7D31", "FFFFFF"
+)
+borde = Border(*(Side(style="thin", color="CCCCCC"),) * 4)
+
+
+def encabezado(ws, num_cols, color):
+    for col in range(1, num_cols + 1):
+        c = ws.cell(row=1, column=col)
+        c.font = Font(bold=True, color=BLANCO, size=11)
+        c.fill = PatternFill("solid", start_color=color)
+        c.alignment = Alignment(horizontal="center", wrap_text=True, vertical="center")
+        c.border = borde
+    ws.row_dimensions[1].height = 30
+
+
+def anchos(ws, lista):
+    for i, a in enumerate(lista, start=1):
+        ws.column_dimensions[get_column_letter(i)].width = a
+
+
+def parse_duracion(iso):
+    if not iso or not isinstance(iso, str):
+        return 0
+    m = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", iso)
+    if not m:
+        return 0
+    h, mn, s = (int(x) if x else 0 for x in m.groups())
+    return h * 3600 + mn * 60 + s
+
+
+def segundos_a_texto(seg):
+    h, resto = divmod(seg, 3600)
+    m, s = divmod(resto, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
+def parse_fecha(iso):
+    try:
+        return datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ")
+    except Exception:
+        return None
+
+
+def color_dominante(ruta):
+    try:
+        img = Image.open(ruta).convert("RGB").resize((80, 45))
+        pixels = list(img.getdata())
+        cuant = [(r // 32 * 32, g // 32 * 32, b // 32 * 32) for r, g, b in pixels]
+        top = Counter(cuant).most_common(1)
+        if not top:
+            return "#000000"
+        r, g, b = top[0][0]
+        return f"#{r:02X}{g:02X}{b:02X}"
+    except Exception:
+        return "#000000"
+
+
+def clasificar_color(hex_color):
+    try:
+        r = int(hex_color[1:3], 16)
+        g = int(hex_color[3:5], 16)
+        b = int(hex_color[5:7], 16)
+        brillo = (r + g + b) / 3
+        if brillo < 60: return "Oscuro"
+        if brillo > 200: return "Claro"
+        if r > g + 40 and r > b + 40: return "Rojo/Calido"
+        if g > r + 40 and g > b + 40: return "Verde"
+        if b > r + 40 and b > g + 40: return "Azul/Frio"
+        return "Neutro"
+    except Exception:
+        return "Desconocido"
+
+
+def descargar_miniatura(url, destino):
+    if os.path.exists(destino):
+        return True
+    try:
+        r = requests.get(url, timeout=10)
+        if r.status_code == 200:
+            with open(destino, "wb") as f:
+                f.write(r.content)
+            return True
+    except Exception:
+        pass
+    return False
+
+
+with open(ARCHIVO_CSV, encoding="utf-8") as f:
+    videos = list(csv.DictReader(f))
+
+for v in videos:
+    v["vistas"]      = int(v["vistas"]) if str(v["vistas"]).isdigit() else 0
+    v["likes"]       = int(v["likes"]) if str(v["likes"]).isdigit() else 0
+    v["comentarios"] = int(v["comentarios"]) if str(v["comentarios"]).isdigit() else 0
+    v["engagement"]  = round((v["likes"] + v["comentarios"]) / v["vistas"] * 100, 2) if v["vistas"] else 0
+    v["segundos"]    = parse_duracion(v.get("duracion", ""))
+    v["fecha"]       = parse_fecha(v.get("publicado", ""))
+    v["suscriptores"] = int(v["suscriptores_canal"]) if str(v.get("suscriptores_canal", "")).isdigit() else 0
+    v["color_dom"]   = ""
+    v["cat_color"]   = ""
+    v["ruta_mini"]   = ""
+
+if DESCARGAR_MINIATURAS:
+    os.makedirs(CARPETA_MINIATURAS, exist_ok=True)
+    print("Descargando y analizando miniaturas...")
+    for i, v in enumerate(videos, 1):
+        url = v.get("miniatura", "")
+        if not url:
+            continue
+        nombre = re.sub(r"[^\w\-]", "_", v.get("url", f"video{i}").split("=")[-1])[:40]
+        ruta = os.path.join(CARPETA_MINIATURAS, f"{nombre}.jpg")
+        if descargar_miniatura(url, ruta):
+            v["ruta_mini"] = ruta
+            v["color_dom"] = color_dominante(ruta)
+            v["cat_color"] = clasificar_color(v["color_dom"])
+        if i % 10 == 0:
+            print(f"  {i}/{len(videos)} miniaturas procesadas")
+
+canal = videos[0].get("canal", "Canal") if videos else "Canal"
+suscriptores = videos[0].get("suscriptores", 0) if videos else 0
+videos_por_fecha = sorted([v for v in videos if v["fecha"]], key=lambda x: x["fecha"])
+vistas_ordenadas = sorted(v["vistas"] for v in videos)
+mediana_global = vistas_ordenadas[len(vistas_ordenadas) // 2] if vistas_ordenadas else 0
+
+wb = Workbook()
+
+ws = wb.active
+ws.title = "1. Resumen"
+ws.append(["Metrica", "Valor"])
+encabezado(ws, 2, AZUL)
+vistas_totales = sum(v["vistas"] for v in videos)
+promedio = vistas_totales // len(videos) if videos else 0
+maximo = max((v["vistas"] for v in videos), default=0)
+eficiencia = round(mediana_global / suscriptores * 1000, 1) if suscriptores else 0
+mejor_video = max(videos, key=lambda x: x["vistas"]) if videos else {}
+mejor_eng = max(videos, key=lambda x: x["engagement"]) if videos else {}
+peor_video = min(videos, key=lambda x: x["vistas"]) if videos else {}
+filas_res = [
+    ("INFORMACION GENERAL", ""),
+    ("Canal", canal),
+    ("Suscriptores", suscriptores),
+    ("Videos analizados", len(videos)),
+    ("Periodo", f"{videos_por_fecha[0]['fecha'].strftime('%Y-%m-%d')} a {videos_por_fecha[-1]['fecha'].strftime('%Y-%m-%d')}" if videos_por_fecha else "N/A"),
+    ("", ""),
+    ("RENDIMIENTO", ""),
+    ("Vistas totales", vistas_totales),
+    ("Likes totales", sum(v["likes"] for v in videos)),
+    ("Mediana de vistas", mediana_global),
+    ("Promedio de vistas", promedio),
+    ("Vistas del video mas exitoso", maximo),
+    ("Vistas del video menos exitoso", peor_video.get("vistas", 0)),
+    ("Vistas por cada 1000 suscriptores", eficiencia),
+    ("Ratio promedio / mediana", round(promedio / mediana_global, 2) if mediana_global else 0),
+    ("", ""),
+    ("MEJORES VIDEOS", ""),
+    ("Mejor por vistas", mejor_video.get("titulo", "")),
+    ("Mejor por engagement", mejor_eng.get("titulo", "")),
+    ("Engagement maximo (%)", mejor_eng.get("engagement", 0)),
+]
+for k, val in filas_res:
+    ws.append([k, val])
+    if k and not val:
+        for col in (1, 2):
+            c = ws.cell(row=ws.max_row, column=col)
+            c.font = Font(bold=True, color=BLANCO)
+            c.fill = PatternFill("solid", start_color=ROJO)
+anchos(ws, [42, 70])
+ws.freeze_panes = "A2"
+
+ws = wb.create_sheet("2. Top 10 videos")
+ws.append(["#", "Titulo", "Vistas", "Likes", "Comentarios", "Engagement %", "Duracion", "Color dominante", "URL"])
+encabezado(ws, 9, ROJO)
+top10 = sorted(videos, key=lambda x: x["vistas"], reverse=True)[:10]
+for i, v in enumerate(top10, start=1):
+    ws.append([i, v["titulo"], v["vistas"], v["likes"], v["comentarios"],
+               v["engagement"], segundos_a_texto(v["segundos"]),
+               v["cat_color"], v["url"]])
+anchos(ws, [4, 60, 12, 10, 14, 13, 12, 16, 45])
+ws.freeze_panes = "A2"
+chart = BarChart()
+chart.title = "Top 10 videos por vistas"
+chart.y_axis.title = "Vistas"
+datos = Reference(ws, min_col=3, min_row=1, max_row=11)
+cats = Reference(ws, min_col=2, min_row=2, max_row=11)
+chart.add_data(datos, titles_from_data=True)
+chart.set_categories(cats)
+chart.width, chart.height = 26, 13
+ws.add_chart(chart, "K2")
+
+ws = wb.create_sheet("3. Outliers")
+ws.append(["Titulo", "Vistas", "Veces la mediana", "Engagement %", "Duracion", "URL"])
+encabezado(ws, 6, AZUL)
+ms = mediana_global or 1
+for v in sorted([v for v in videos if v["vistas"] > ms * 2],
+                key=lambda x: x["vistas"], reverse=True):
+    ws.append([v["titulo"], v["vistas"], round(v["vistas"] / ms, 1),
+               v["engagement"], segundos_a_texto(v["segundos"]), v["url"]])
+anchos(ws, [60, 12, 16, 14, 12, 45])
+ws.freeze_panes = "A2"
+
+ws = wb.create_sheet("4. Palabras clave")
+ws.append(["Palabra", "Frecuencia", "% del total"])
+encabezado(ws, 3, ROJO)
+stop = {"de","la","el","en","y","a","que","los","las","un","una","para","con","por",
+        "del","al","es","se","mi","tu","te","lo","como","mas","pero","sin","si","no",
+        "yo","me","the","to","of","and","in","is","you","your","más","cómo","qué","así"}
+palabras = []
+for v in videos:
+    limpio = re.sub(r"[^\w\sáéíóúñü]", "", v["titulo"].lower())
+    palabras += [p for p in limpio.split() if p not in stop and len(p) > 2]
+tot = len(palabras) or 1
+contadas = Counter(palabras).most_common(40)
+for palabra, freq in contadas:
+    ws.append([palabra, freq, round(freq / tot * 100, 2)])
+anchos(ws, [26, 14, 14])
+ws.freeze_panes = "A2"
+if contadas:
+    pie = PieChart()
+    pie.title = "Top 10 palabras mas frecuentes"
+    datos = Reference(ws, min_col=2, min_row=1, max_row=11)
+    cats = Reference(ws, min_col=1, min_row=2, max_row=11)
+    pie.add_data(datos, titles_from_data=True)
+    pie.set_categories(cats)
+    pie.width, pie.height = 20, 12
+    ws.add_chart(pie, "E2")
+
+ws = wb.create_sheet("5. Duracion")
+ws.append(["Categoria", "Rango", "Videos", "Mediana vistas", "Engagement medio"])
+encabezado(ws, 5, VERDE)
+cats_dur = [
+    ("Shorts", "0-60 s", lambda s: s <= 60),
+    ("Cortos", "1-5 min", lambda s: 60 < s <= 300),
+    ("Medios", "5-15 min", lambda s: 300 < s <= 900),
+    ("Largos", "15-30 min", lambda s: 900 < s <= 1800),
+    ("Muy largos", "+30 min", lambda s: s > 1800),
+]
+for nombre, rango, cond in cats_dur:
+    grupo = [v for v in videos if cond(v["segundos"])]
+    if not grupo:
+        ws.append([nombre, rango, 0, 0, 0]); continue
+    med_v = sorted(v["vistas"] for v in grupo)[len(grupo) // 2]
+    eng_m = round(sum(v["engagement"] for v in grupo) / len(grupo), 2)
+    ws.append([nombre, rango, len(grupo), med_v, eng_m])
+anchos(ws, [16, 14, 10, 16, 18])
+ws.freeze_panes = "A2"
+chart = BarChart()
+chart.title = "Mediana de vistas por duracion"
+datos = Reference(ws, min_col=4, min_row=1, max_row=6)
+cats = Reference(ws, min_col=1, min_row=2, max_row=6)
+chart.add_data(datos, titles_from_data=True)
+chart.set_categories(cats)
+chart.width, chart.height = 20, 12
+ws.add_chart(chart, "G2")
+
+ws = wb.create_sheet("6. Dia y hora")
+ws.append(["Dia", "Hora", "Videos", "Mediana vistas", "Engagement medio"])
+encabezado(ws, 5, AZUL)
+dias = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"]
+cubos = {}
+for v in videos_por_fecha:
+    cubos.setdefault((v["fecha"].weekday(), v["fecha"].hour), []).append(v)
+for (dia, hora), grupo in sorted(cubos.items()):
+    vs = sorted(x["vistas"] for x in grupo)
+    med = vs[len(vs) // 2]
+    eng = round(sum(x["engagement"] for x in grupo) / len(grupo), 2)
+    ws.append([dias[dia], f"{hora:02d}:00", len(grupo), med, eng])
+if ws.max_row > 1:
+    ws.conditional_formatting.add(f"D2:D{ws.max_row}",
+        ColorScaleRule(start_type="min", start_color="FFF2CC",
+                       end_type="max", end_color="63BE7B"))
+anchos(ws, [20, 10, 10, 16, 18])
+ws.freeze_panes = "A2"
+
+ws = wb.create_sheet("7. Tendencia")
+ws.append(["Mes", "Videos", "Mediana vistas", "Engagement medio", "Vistas totales"])
+encabezado(ws, 5, ROJO)
+meses = {}
+for v in videos_por_fecha:
+    meses.setdefault(v["fecha"].strftime("%Y-%m"), []).append(v)
+for mes in sorted(meses.keys()):
+    grupo = meses[mes]
+    med_v = sorted(x["vistas"] for x in grupo)[len(grupo) // 2]
+    eng_m = round(sum(x["engagement"] for x in grupo) / len(grupo), 2)
+    tot_v = sum(x["vistas"] for x in grupo)
+    ws.append([mes, len(grupo), med_v, eng_m, tot_v])
+anchos(ws, [12, 10, 16, 18, 16])
+ws.freeze_panes = "A2"
+if ws.max_row > 1:
+    ch = LineChart()
+    ch.title = "Mediana de vistas por mes"
+    datos = Reference(ws, min_col=3, min_row=1, max_row=ws.max_row)
+    cats = Reference(ws, min_col=1, min_row=2, max_row=ws.max_row)
+    ch.add_data(datos, titles_from_data=True)
+    ch.set_categories(cats)
+    ch.width, ch.height = 22, 12
+    ws.add_chart(ch, "G2")
+
+ws = wb.create_sheet("8. Comparar periodos")
+ws.append(["Periodo", "Videos", "Mediana vistas", "Engagement medio", "Vistas totales"])
+encabezado(ws, 5, VERDE)
+if videos_por_fecha:
+    hoy = max(v["fecha"] for v in videos_por_fecha)
+    cr = hoy - timedelta(days=DIAS_RECIENTES)
+    cp = cr - timedelta(days=DIAS_RECIENTES)
+    recientes = [v for v in videos_por_fecha if v["fecha"] > cr]
+    previos = [v for v in videos_por_fecha if cp < v["fecha"] <= cr]
+    resto = [v for v in videos_por_fecha if v["fecha"] <= cp]
+    def fila(nombre, grupo):
+        if not grupo:
+            return [nombre, 0, 0, 0, 0]
+        med = sorted(x["vistas"] for x in grupo)[len(grupo) // 2]
+        eng = round(sum(x["engagement"] for x in grupo) / len(grupo), 2)
+        return [nombre, len(grupo), med, eng, sum(x["vistas"] for x in grupo)]
+    ws.append(fila(f"Ultimos {DIAS_RECIENTES} dias", recientes))
+    ws.append(fila(f"{DIAS_RECIENTES} dias anteriores", previos))
+    ws.append(fila("Historico restante", resto))
+anchos(ws, [28, 10, 16, 18, 16])
+ws.freeze_panes = "A2"
+
+ws = wb.create_sheet("9. Miniaturas")
+ws.append(["Titulo", "Vistas", "Color dominante", "Categoria", "Ruta", "URL"])
+encabezado(ws, 6, NARANJA)
+for v in sorted(videos, key=lambda x: x["vistas"], reverse=True):
+    ws.append([v["titulo"], v["vistas"], v["color_dom"], v["cat_color"],
+               v["ruta_mini"], v["url"]])
+anchos(ws, [55, 12, 16, 16, 32, 45])
+ws.freeze_panes = "A2"
+fr = ws.max_row + 3
+ws.cell(row=fr, column=1, value="Resumen por color:").font = Font(bold=True)
+for c in range(1, 4):
+    cell = ws.cell(row=fr + 1, column=c)
+    cell.font = Font(bold=True, color=BLANCO)
+    cell.fill = PatternFill("solid", start_color=NARANJA)
+ws.cell(row=fr + 1, column=1, value="Categoria")
+ws.cell(row=fr + 1, column=2, value="Videos")
+ws.cell(row=fr + 1, column=3, value="Mediana vistas")
+cats_color = {}
+for v in videos:
+    if v["cat_color"]:
+        cats_color.setdefault(v["cat_color"], []).append(v["vistas"])
+fa = fr + 2
+for cat, vst in sorted(cats_color.items(), key=lambda x: -len(x[1])):
+    vo = sorted(vst)
+    ws.cell(row=fa, column=1, value=cat)
+    ws.cell(row=fa, column=2, value=len(vst))
+    ws.cell(row=fa, column=3, value=vo[len(vo) // 2])
+    fa += 1
+if DESCARGAR_MINIATURAS:
+    fi = fa + 2
+    ws.cell(row=fi, column=1, value="Top 5 miniaturas:").font = Font(bold=True)
+    fi += 2
+    for v in sorted(videos, key=lambda x: x["vistas"], reverse=True)[:5]:
+        if v["ruta_mini"] and os.path.exists(v["ruta_mini"]):
+            try:
+                img = XLImage(v["ruta_mini"])
+                img.width, img.height = 240, 135
+                ws.add_image(img, f"A{fi}")
+                ws.cell(row=fi, column=3, value=v["titulo"])
+                fi += 8
+            except Exception:
+                pass
+
+ws = wb.create_sheet("10. Todos los videos")
+ws.append(["Fecha", "Titulo", "Vistas", "Likes", "Comentarios",
+           "Engagement %", "Duracion", "Color", "URL", "Miniatura"])
+encabezado(ws, 10, AZUL)
+for v in sorted(videos, key=lambda x: x["vistas"], reverse=True):
+    ws.append([v["fecha"].strftime("%Y-%m-%d") if v["fecha"] else "",
+               v["titulo"], v["vistas"], v["likes"], v["comentarios"],
+               v["engagement"], segundos_a_texto(v["segundos"]),
+               v["cat_color"], v["url"], v.get("miniatura", "")])
+anchos(ws, [12, 55, 12, 10, 14, 13, 12, 14, 45, 50])
+ws.freeze_panes = "A2"
+ws.auto_filter.ref = f"A1:J{ws.max_row}"
+
+wb.save(ARCHIVO_SALIDA)
+print(f"Listo: {ARCHIVO_SALIDA}")
+print(f"Hojas: {', '.join(wb.sheetnames)}")</div>
+
+  <div class="paso"><div class="numero">3</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Guarda</strong> con <code>Ctrl + S</code> como <code>analisis_1canal.py</code>.</div></div>
+  <div class="paso"><div class="numero">4</div><div class="texto"><span class="contexto ctx-terminal">TERMINAL</span> <strong>Ejecuta</strong>:
+    <div class="codigo">python analisis_1canal.py</div>
+  </div></div>
+  <div class="caja-exito">
+    <strong>✅ Resultado esperado:</strong>
+    <div class="codigo">Descargando y analizando miniaturas...
+  10/30 miniaturas procesadas
+  30/30 miniaturas procesadas
+Listo: analisis_EloisaWolf.xlsx
+Hojas: 1. Resumen, 2. Top 10 videos, ...</div>
+  </div>
+</div>
+
+<!-- 7 REPORTE -->
+<div class="seccion" id="reporte">
+  <h2>7. Paso 3: Generar el reporte PDF final</h2>
+  <p>Este script produce el PDF profesional para el cliente, con conclusiones automáticas y miniaturas embebidas.</p>
+
+  <div class="paso"><div class="numero">1</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <code>Ctrl + N</code> para abrir otro archivo nuevo.</div></div>
+  <div class="paso"><div class="numero">2</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Pega este código completo</strong>:</div></div>
+  <div class="aviso-archivo">generar_reporte.py</div>
+  <div class="codigo">import csv, os, re
+from datetime import datetime
+from collections import Counter
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import cm
+from reportlab.lib import colors
+from reportlab.platypus import (
+    SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle,
+    Image as RLImage,
+)
+from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
+
+ARCHIVO_CSV = "EloisaWolf.csv"
+ARCHIVO_SALIDA = "reporte_EloisaWolf.pdf"
+CARPETA_MINIATURAS = "miniaturas"
+INCLUIR_MINIATURAS = True
+
+AZUL = colors.HexColor("#1F4E79")
+ROJO = colors.HexColor("#C00000")
+VERDE = colors.HexColor("#548235")
+GRIS = colors.HexColor("#F2F2F2")
+
+
+def parse_duracion(iso):
+    if not iso or not isinstance(iso, str):
+        return 0
+    m = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", iso)
+    if not m:
+        return 0
+    h, mn, s = (int(x) if x else 0 for x in m.groups())
+    return h * 3600 + mn * 60 + s
+
+
+def parse_fecha(iso):
+    try:
+        return datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ")
+    except Exception:
+        return None
+
+
+def segundos_a_texto(seg):
+    h, resto = divmod(seg, 3600)
+    m, s = divmod(resto, 60)
+    return f"{h}h {m}m" if h else f"{m}m {s}s"
+
+
+with open(ARCHIVO_CSV, encoding="utf-8") as f:
+    videos = list(csv.DictReader(f))
+
+for v in videos:
+    v["vistas"] = int(v["vistas"]) if str(v["vistas"]).isdigit() else 0
+    v["likes"] = int(v["likes"]) if str(v["likes"]).isdigit() else 0
+    v["comentarios"] = int(v["comentarios"]) if str(v["comentarios"]).isdigit() else 0
+    v["engagement"] = 0
+    if v["vistas"]:
+        v["engagement"] = round(
+            (v["likes"] + v["comentarios"]) / v["vistas"] * 100, 2
+        )
+    v["segundos"] = parse_duracion(v.get("duracion", ""))
+    v["fecha"] = parse_fecha(v.get("publicado", ""))
+    v["suscriptores"] = 0
+    if str(v.get("suscriptores_canal", "")).isdigit():
+        v["suscriptores"] = int(v["suscriptores_canal"])
+
+canal = videos[0].get("canal", "Canal") if videos else "Canal"
+suscriptores = videos[0].get("suscriptores", 0) if videos else 0
+
+vistas_ordenadas = sorted(v["vistas"] for v in videos)
+mediana_global = 0
+if vistas_ordenadas:
+    mediana_global = vistas_ordenadas[len(vistas_ordenadas) // 2]
+
+vistas_totales = sum(v["vistas"] for v in videos)
+promedio = vistas_totales // len(videos) if videos else 0
+eficiencia = 0
+if suscriptores:
+    eficiencia = round(mediana_global / suscriptores * 1000, 1)
+
+mejor_video = max(videos, key=lambda x: x["vistas"]) if videos else {}
+mejor_eng = max(videos, key=lambda x: x["engagement"]) if videos else {}
+
+outliers = []
+if mediana_global:
+    outliers = [v for v in videos if v["vistas"] > mediana_global * 2]
+
+stop = {
+    "de", "la", "el", "en", "y", "a", "que", "los", "las", "un", "una",
+    "para", "con", "por", "del", "al", "es", "se", "mi", "tu", "te",
+    "lo", "como", "mas", "pero", "sin", "si", "no", "yo", "me",
+    "the", "to", "of", "and", "in", "is", "you", "your",
+    "más", "cómo", "qué", "así",
+}
+
+palabras = []
+for v in videos:
+    limpio = re.sub(r"[^\w\sáéíóúñü]", "", v["titulo"].lower())
+    palabras += [
+        p for p in limpio.split() if p not in stop and len(p) > 2
+    ]
+top_palabras = Counter(palabras).most_common(10)
+
+cats_dur = [
+    ("Shorts (0-60s)", lambda s: s <= 60),
+    ("Cortos (1-5min)", lambda s: 60 < s <= 300),
+    ("Medios (5-15min)", lambda s: 300 < s <= 900),
+    ("Largos (15-30min)", lambda s: 900 < s <= 1800),
+    ("Muy largos (+30min)", lambda s: s > 1800),
+]
+
+resumen_dur = []
+for nombre, cond in cats_dur:
+    grupo = [v for v in videos if cond(v["segundos"])]
+    if grupo:
+        med = sorted(x["vistas"] for x in grupo)[len(grupo) // 2]
+        eng = round(
+            sum(x["engagement"] for x in grupo) / len(grupo), 2
+        )
+        resumen_dur.append((nombre, len(grupo), med, eng))
+
+cubos_dia = {}
+for v in videos:
+    if v["fecha"]:
+        d = v["fecha"].weekday()
+        cubos_dia.setdefault(d, []).append(v["vistas"])
+
+dias = [
+    "Lunes", "Martes", "Miercoles", "Jueves",
+    "Viernes", "Sabado", "Domingo",
+]
+resumen_dia = []
+for d in sorted(cubos_dia.keys()):
+    vs = sorted(cubos_dia[d])
+    resumen_dia.append((dias[d], len(vs), vs[len(vs) // 2]))
+
+miniaturas_locales = []
+if INCLUIR_MINIATURAS and os.path.isdir(CARPETA_MINIATURAS):
+    top5 = sorted(videos, key=lambda x: x["vistas"], reverse=True)[:5]
+    for v in top5:
+        vid_id = v["url"].split("=")[-1]
+        for archivo in os.listdir(CARPETA_MINIATURAS):
+            if vid_id[:11] in archivo:
+                ruta = os.path.join(CARPETA_MINIATURAS, archivo)
+                miniaturas_locales.append((v["url"], ruta))
+                break
+
+doc = SimpleDocTemplate(
+    ARCHIVO_SALIDA, pagesize=A4,
+    leftMargin=2 * cm, rightMargin=2 * cm,
+    topMargin=2 * cm, bottomMargin=2 * cm,
+)
+
+estilos = getSampleStyleSheet()
+e_titulo = ParagraphStyle(
+    "t", parent=estilos["Title"],
+    fontSize=28, textColor=AZUL, spaceAfter=20,
+)
+e_sub = ParagraphStyle(
+    "s", parent=estilos["Heading1"],
+    fontSize=18, textColor=AZUL, spaceAfter=12, spaceBefore=20,
+)
+e_texto = ParagraphStyle(
+    "tx", parent=estilos["BodyText"],
+    fontSize=10.5, alignment=TA_JUSTIFY, leading=15,
+)
+e_centrado = ParagraphStyle(
+    "c", parent=estilos["BodyText"],
+    fontSize=12, alignment=TA_CENTER,
+)
+
+historia = []
+
+historia.append(Spacer(1, 5 * cm))
+historia.append(Paragraph("Reporte de análisis de canal", e_titulo))
+historia.append(Paragraph(canal, e_sub))
+historia.append(Spacer(1, 1.5 * cm))
+
+txt1 = f"Análisis de los últimos {len(videos)} videos"
+historia.append(Paragraph(txt1, e_centrado))
+
+txt2 = f"Suscriptores: {suscriptores:,}"
+historia.append(Paragraph(txt2, e_centrado))
+historia.append(Spacer(1, 1 * cm))
+
+fecha_hoy = datetime.now().strftime("%d/%m/%Y")
+historia.append(Paragraph(f"Fecha: {fecha_hoy}", e_centrado))
+historia.append(PageBreak())
+
+historia.append(Paragraph("1. Resumen ejecutivo", e_sub))
+txt_res = (
+    f"El canal {canal} cuenta con {suscriptores:,} suscriptores. "
+    f"Se analizaron {len(videos)} videos recientes. "
+    f"La mediana de vistas por video es {mediana_global:,}, "
+    f"mientras que el promedio es {promedio:,}. "
+    f"El video más exitoso alcanzó "
+    f"{mejor_video.get('vistas', 0):,} vistas."
+)
+historia.append(Paragraph(txt_res, e_texto))
+historia.append(Spacer(1, 0.5 * cm))
+
+tabla_res = [
+    ["Métrica", "Valor"],
+    ["Suscriptores", f"{suscriptores:,}"],
+    ["Videos analizados", f"{len(videos)}"],
+    ["Vistas totales", f"{vistas_totales:,}"],
+    ["Mediana de vistas", f"{mediana_global:,}"],
+    ["Promedio de vistas", f"{promedio:,}"],
+    ["Vistas por 1000 subs", f"{eficiencia}"],
+    ["Outliers (2x mediana)", f"{len(outliers)}"],
+    ["Mejor video", mejor_video.get("titulo", "")[:60]],
+]
+t = Table(tabla_res, colWidths=[6 * cm, 10 * cm])
+t.setStyle(TableStyle([
+    ("BACKGROUND", (0, 0), (-1, 0), AZUL),
+    ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+    ("FONTSIZE", (0, 0), (-1, -1), 10),
+    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, GRIS]),
+    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ("LEFTPADDING", (0, 0), (-1, -1), 8),
+    ("TOPPADDING", (0, 0), (-1, -1), 6),
+    ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+]))
+historia.append(t)
+historia.append(PageBreak())
+
+historia.append(Paragraph("2. Top 5 videos con miniaturas", e_sub))
+top5 = sorted(videos, key=lambda x: x["vistas"], reverse=True)[:5]
+for i, v in enumerate(top5, 1):
+    contenido = []
+    miniatura_encontrada = None
+    for url_m, ruta in miniaturas_locales:
+        if url_m == v["url"]:
+            miniatura_encontrada = ruta
+            break
+    if miniatura_encontrada and os.path.exists(miniatura_encontrada):
+        img = RLImage(
+            miniatura_encontrada, width=6 * cm, height=3.375 * cm
+        )
+        contenido.append(img)
+
+    datos_v = (
+        f"{i}. {v['titulo']}<br/><br/>"
+        f"Vistas: {v['vistas']:,}<br/>"
+        f"Likes: {v['likes']:,} · Comentarios: {v['comentarios']:,}<br/>"
+        f"Engagement: {v['engagement']}%<br/>"
+        f"Duración: {segundos_a_texto(v['segundos'])}"
+    )
+    contenido.append(Paragraph(datos_v, e_texto))
+
+    if len(contenido) == 2:
+        cols = [6.5 * cm, 9.5 * cm]
+    else:
+        cols = [16 * cm]
+    t = Table([contenido], colWidths=cols)
+    t.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 5),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 12),
+    ]))
+    historia.append(t)
+    historia.append(Spacer(1, 0.3 * cm))
+historia.append(PageBreak())
+
+if outliers:
+    historia.append(Paragraph("3. Videos outlier", e_sub))
+    txt_out = (
+        f"Se detectaron {len(outliers)} videos con más del doble de "
+        f"vistas que la mediana del canal. Son clave para entender "
+        f"qué funciona."
+    )
+    historia.append(Paragraph(txt_out, e_texto))
+    historia.append(Spacer(1, 0.4 * cm))
+
+    tabla_out = [["Título", "Vistas", "Veces mediana", "Engagement"]]
+    for v in outliers[:10]:
+        tabla_out.append([
+            Paragraph(v["titulo"][:70], e_texto),
+            f"{v['vistas']:,}",
+            f"{round(v['vistas'] / mediana_global, 1)}x",
+            f"{v['engagement']}%",
+        ])
+    t = Table(tabla_out, colWidths=[9 * cm, 2.5 * cm, 2.5 * cm, 2.5 * cm])
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), ROJO),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (-1, -1), 9),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, GRIS]),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+    ]))
+    historia.append(t)
+    historia.append(PageBreak())
+
+historia.append(Paragraph("4. Palabras clave en títulos", e_sub))
+tabla_pal = [["Palabra", "Frecuencia"]]
+for palabra, freq in top_palabras:
+    tabla_pal.append([palabra, str(freq)])
+t = Table(tabla_pal, colWidths=[8 * cm, 5 * cm])
+t.setStyle(TableStyle([
+    ("BACKGROUND", (0, 0), (-1, 0), VERDE),
+    ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+    ("FONTSIZE", (0, 0), (-1, -1), 10),
+    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, GRIS]),
+    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+]))
+historia.append(t)
+historia.append(PageBreak())
+
+historia.append(Paragraph("5. Rendimiento por duración", e_sub))
+tabla_dur = [["Categoría", "Videos", "Mediana vistas", "Engagement"]]
+for nombre, cant, med, eng in resumen_dur:
+    tabla_dur.append([nombre, str(cant), f"{med:,}", f"{eng}%"])
+t = Table(tabla_dur, colWidths=[6 * cm, 2.5 * cm, 4 * cm, 4 * cm])
+t.setStyle(TableStyle([
+    ("BACKGROUND", (0, 0), (-1, 0), AZUL),
+    ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+    ("FONTSIZE", (0, 0), (-1, -1), 10),
+    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, GRIS]),
+    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+]))
+historia.append(t)
+historia.append(PageBreak())
+
+historia.append(Paragraph("6. Mejores días para publicar", e_sub))
+tabla_dia = [["Día", "Videos", "Mediana vistas"]]
+for nombre, cant, med in sorted(resumen_dia, key=lambda x: -x[2]):
+    tabla_dia.append([nombre, str(cant), f"{med:,}"])
+t = Table(tabla_dia, colWidths=[7 * cm, 3 * cm, 5 * cm])
+t.setStyle(TableStyle([
+    ("BACKGROUND", (0, 0), (-1, 0), VERDE),
+    ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+    ("FONTSIZE", (0, 0), (-1, -1), 10),
+    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, GRIS]),
+    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+]))
+historia.append(t)
+historia.append(PageBreak())
+
+historia.append(Paragraph("7. Conclusiones y recomendaciones", e_sub))
+conclusiones = []
+
+if resumen_dur:
+    md = max(resumen_dur, key=lambda x: x[2])
+    conclusiones.append(
+        f"Duración óptima: la categoría {md[0]} tiene la mediana "
+        f"más alta ({md[2]:,}). Producir más contenido en este rango."
+    )
+if resumen_dia:
+    mdi = max(resumen_dia, key=lambda x: x[2])
+    conclusiones.append(
+        f"Mejor día: {mdi[0]}, con mediana de {mdi[2]:,} vistas. "
+        f"Programar estrenos ese día."
+    )
+if outliers:
+    conclusiones.append(
+        f"Outliers: hay {len(outliers)} videos que superan 2x la "
+        f"mediana. Analizar sus títulos, miniaturas y duración para "
+        f"replicar la fórmula."
+    )
+if eficiencia > 100:
+    conclusiones.append(
+        f"Eficiencia excelente: {eficiencia} vistas por 1000 subs. "
+        f"El contenido resuena con la audiencia."
+    )
+elif eficiencia < 30:
+    conclusiones.append(
+        f"Alerta de alcance: solo {eficiencia} vistas por 1000 subs. "
+        f"Revisar títulos y miniaturas."
+    )
+else:
+    conclusiones.append(
+        f"Eficiencia saludable: {eficiencia} vistas por 1000 subs. "
+        f"Margen de mejora en títulos y miniaturas."
+    )
+if promedio > mediana_global * 1.5:
+    conclusiones.append(
+        f"Distribución desigual: promedio ({promedio:,}) muy superior "
+        f"a mediana ({mediana_global:,}). Unos pocos videos "
+        f"concentran las vistas. Identificar y replicar esos casos."
+    )
+if top_palabras:
+    pt = ", ".join([p for p, _ in top_palabras[:3]])
+    conclusiones.append(
+        f"Identidad temática: palabras top en títulos: {pt}. "
+        f"Reforzar estos temas."
+    )
+if mejor_eng and mejor_eng.get("engagement", 0) > 5:
+    conclusiones.append(
+        f"Alto engagement: el video "
+        f"{mejor_eng.get('titulo', '')[:50]} alcanzó "
+        f"{mejor_eng.get('engagement', 0)}%. Considerar secuela."
+    )
+
+for c in conclusiones:
+    historia.append(Paragraph(f"• {c}", e_texto))
+    historia.append(Spacer(1, 0.3 * cm))
+
+historia.append(Spacer(1, 1 * cm))
+historia.append(Paragraph(
+    "Reporte generado automáticamente a partir de datos "
+    "públicos de YouTube.",
+    e_centrado,
+))
+
+doc.build(historia)
+print(f"Listo: {ARCHIVO_SALIDA}")
+print(f"Reporte con {len(conclusiones)} conclusiones automáticas.")</div>
+
+  <div class="paso"><div class="numero">3</div><div class="texto"><span class="contexto ctx-editor">EDITOR</span> <strong>Guarda</strong> con <code>Ctrl + S</code> como <code>generar_reporte.py</code>.</div></div>
+  <div class="paso"><div class="numero">4</div><div class="texto"><span class="contexto ctx-terminal">TERMINAL</span> <strong>Ejecuta</strong>:
+    <div class="codigo">python generar_reporte.py</div>
+  </div></div>
+
+  <div class="caja-exito">
+    <strong>✅ Resultado esperado:</strong>
+    <div class="codigo">Listo: reporte_EloisaWolf.pdf
+Reporte con 7 conclusiones automáticas.</div>
+  </div>
+
+  <h3>Contenido del PDF</h3>
+  <table>
+    <tr><th>Sección</th><th>Contenido</th></tr>
+    <tr><td>Portada</td><td>Canal, cantidad de videos, fecha</td></tr>
+    <tr><td>1. Resumen ejecutivo</td><td>Tabla con métricas principales</td></tr>
+    <tr><td>2. Top 5 videos</td><td><strong>Con miniaturas embebidas</strong></td></tr>
+    <tr><td>3. Outliers</td><td>Videos que superaron 2x la mediana</td></tr>
+    <tr><td>4. Palabras clave</td><td>Top 10 palabras en títulos</td></tr>
+    <tr><td>5. Duración</td><td>Qué duración funciona mejor</td></tr>
+    <tr><td>6. Mejores días</td><td>Qué día de la semana rinde más</td></tr>
+    <tr><td>7. Conclusiones</td><td><strong>Generadas automáticamente</strong></td></tr>
+  </table>
+</div>
+
+<!-- 8 EJECUTAR -->
+<div class="seccion" id="ejecutar">
+  <h2>8. Paso 4: Ejecutar el flujo completo</h2>
+  <p><span class="contexto ctx-terminal">TERMINAL</span> Una vez tengas los 3 archivos guardados, ejecuta en orden:</p>
+  <div class="codigo">python scraper_canal.py
+python analisis_1canal.py
+python generar_reporte.py</div>
+
+  <h3>Resultado final en tu carpeta</h3>
+  <table>
+    <tr><th>Archivo</th><th>Qué es</th></tr>
+    <tr><td><code>EloisaWolf.csv</code></td><td>Datos crudos descargados de YouTube</td></tr>
+    <tr><td><code>analisis_EloisaWolf.xlsx</code></td><td>Excel con 10 hojas de análisis</td></tr>
+    <tr><td><code>miniaturas/</code></td><td>Carpeta con las imágenes descargadas</td></tr>
+    <tr><td><code>reporte_EloisaWolf.pdf</code></td><td><strong>PDF profesional para el cliente</strong></td></tr>
+  </table>
+</div>
+
+<!-- 9 HOJAS -->
+<div class="seccion" id="hojas">
+  <h2>9. Qué contiene cada hoja del Excel</h2>
+  <table>
+    <tr><th>#</th><th>Hoja</th><th>Qué analiza</th></tr>
+    <tr><td>1</td><td>Resumen</td><td>Métricas generales (subs, vistas, mediana, eficiencia)</td></tr>
+    <tr><td>2</td><td>Top 10 videos</td><td>Los 10 más vistos + gráfica de barras</td></tr>
+    <tr><td>3</td><td>Outliers</td><td>Videos con más del doble de vistas que la mediana</td></tr>
+    <tr><td>4</td><td>Palabras clave</td><td>Las 40 palabras más usadas en títulos + gráfica de pastel</td></tr>
+    <tr><td>5</td><td>Duración</td><td>Rendimiento según duración (Shorts, cortos, medios, largos)</td></tr>
+    <tr><td>6</td><td>Día y hora</td><td>Mapa de calor de qué día y hora rinde mejor</td></tr>
+    <tr><td>7</td><td>Tendencia</td><td>Evolución mensual + gráfica de línea</td></tr>
+    <tr><td>8</td><td>Comparar periodos</td><td>Últimos 30 días vs 30 anteriores</td></tr>
+    <tr><td>9</td><td><strong>Miniaturas</strong></td><td><strong>Color dominante, categoría, vista previa de las 5 mejores</strong></td></tr>
+    <tr><td>10</td><td>Todos los videos</td><td>Listado completo con filtros</td></tr>
+  </table>
+</div>
+
+<!-- 10 INTERPRETAR -->
+<div class="seccion" id="interpretar">
+  <h2>10. Cómo interpretar los resultados</h2>
+
+  <h3>📊 Mediana vs promedio</h3>
+  <p><strong>Siempre mira la mediana primero.</strong> El promedio se distorsiona con videos virales. Si el promedio es muy superior a la mediana, unos pocos videos hacen todo el trabajo.</p>
+
+  <h3>🎯 Vistas por 1000 suscriptores</h3>
+  <table>
+    <tr><th>Rango</th><th>Significado</th><th>Acción</th></tr>
+    <tr><td>+100</td><td>🟢 Excelente alcance</td><td>Mantener estrategia</td></tr>
+    <tr><td>50-100</td><td>🟡 Saludable</td><td>Optimizar títulos y miniaturas</td></tr>
+    <tr><td>20-50</td><td>🟠 Necesita mejorar</td><td>Revisar temas y formatos</td></tr>
+    <tr><td>-20</td><td>🔴 Problema serio</td><td>Cambio de estrategia urgente</td></tr>
+  </table>
+
+  <h3>🎨 Análisis de miniaturas</h3>
+  <p>El script clasifica colores dominantes de cada miniatura. Si los videos más exitosos comparten un color (por ejemplo, <em>Rojo/Calido</em>), esa es una pista para tus próximas miniaturas.</p>
+
+  <h3>⏱️ Duración</h3>
+  <p>Compara la mediana de vistas entre categorías. La categoría con la mediana más alta es tu <strong>duración ganadora</strong>.</p>
+</div>
+
+<!-- 11 ERRORES -->
+<div class="seccion" id="errores">
+  <h2>11. Errores comunes y solución</h2>
+  <table>
+    <tr><th>Error</th><th>Causa</th><th>Solución</th></tr>
+    <tr><td><code>SyntaxError: invalid syntax</code></td><td>Pegaste un comando de terminal dentro de un archivo .py</td><td>El comando va en la terminal, no dentro del archivo</td></tr>
+    <tr><td><code>FileNotFoundError: .csv</code></td><td>El CSV no existe o el nombre está mal</td><td>Verifica con <code>dir *.csv</code> que exista con el nombre exacto</td></tr>
+    <tr><td><code>ModuleNotFoundError</code></td><td>Falta instalar una librería</td><td>Corre <code>pip install nombre_libreria</code></td></tr>
+    <tr><td><code>KeyError: 'suscriptores_canal'</code></td><td>El CSV no tiene esa columna</td><td>Revisa la primera línea del CSV</td></tr>
+    <tr><td>Excel vacío</td><td>El CSV no tiene filas</td><td>Abre el CSV y verifica que tenga datos</td></tr>
+    <tr><td>Error 403 en el scraper</td><td>API Key inválida o cuota agotada</td><td>Verifica la clave, o espera 24h</td></tr>
+    <tr><td>Miniaturas no aparecen</td><td>Sin internet o bloqueo de red</td><td>Verifica conexión; las miniaturas se descargan una sola vez</td></tr>
+  </table>
+</div>
+
+<!-- 12 VARIOS -->
+<div class="seccion" id="varios-canales">
+  <h2>12. Analizar varios canales</h2>
+  <h3>Paso 1: Descarga cada canal</h3>
+  <p>Cambia <code>CHANNEL_HANDLE</code> en <code>scraper_canal.py</code> y ejecútalo por cada canal. Obtendrás varios CSV.</p>
+
+  <h3>Paso 2: Únelos</h3>
+  <p>Abre los CSV en Excel, copia las filas de todos y pégalas en uno solo. Guárdalo como <code>varios_canales.csv</code>.</p>
+
+  <h3>Paso 3: Apunta el análisis al CSV combinado</h3>
+  <p>En <code>analisis_1canal.py</code> y <code>generar_reporte.py</code> cambia:</p>
+  <div class="codigo">ARCHIVO_CSV = "varios_canales.csv"</div>
+
+  <div class="caja-truco">
+    <strong>💡 Con varios canales puedes comparar:</strong>
+    <ul style="margin-top: 10px; padding-left: 20px;">
+      <li>Qué canal tiene mejor eficiencia (vistas por 1000 subs)</li>
+      <li>Qué canal publica en mejores días</li>
+      <li>Qué temas funcionan mejor en tu nicho completo</li>
+    </ul>
+  </div>
+</div>
+
+<div class="seccion">
+  <h2>🎁 Cierre</h2>
+  <p>Con este sistema puedes analizar cualquier canal de YouTube de forma profesional y entregar un <strong>reporte en PDF listo para cliente</strong> en menos de 10 minutos por canal.</p>
+  <p style="margin-top: 15px;">La diferencia entre un análisis amateur y uno profesional está en <strong>tres cosas</strong>:</p>
+  <ol style="padding-left: 25px; margin-top: 10px;">
+    <li>La mediana, no el promedio</li>
+    <li>El análisis de miniaturas</li>
+    <li>Las conclusiones con acciones concretas</li>
+  </ol>
+  <p style="margin-top: 20px; text-align: center; font-size: 1.15em;">🚀 ¡Éxito con tus análisis!</p>
+</div>
+
+<div class="footer">
+  Guía profesional de análisis de YouTube · 2026
+</div>
+
+</body>
+</html>
